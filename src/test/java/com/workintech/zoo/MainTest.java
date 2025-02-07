@@ -1,6 +1,7 @@
 package com.workintech.zoo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.workintech.zoo.entity.Gender;
 import com.workintech.zoo.entity.Kangaroo;
 import com.workintech.zoo.entity.Koala;
 import com.workintech.zoo.exceptions.ZooErrorResponse;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(ResultAnalyzer.class)
+@ExtendWith(com.workintech.s17d2.ResultAnalyzer.class)
 class MainTest {
 
 
@@ -44,8 +45,8 @@ class MainTest {
     @BeforeEach
     void setup() {
 
-        kangaroo = new Kangaroo(1, "Kenny", 2.0, 85.0, "Male", false);
-        koala = new Koala(1, "Kara", 20.0, 15.0, "Female");
+        kangaroo = new Kangaroo(1, "Kenny", 2.0, 85.0, Gender.MALE, false);
+        koala = new Koala(1, "Kara", 20.0, 15.0, Gender.FEMALE);
 
     }
 
@@ -53,14 +54,14 @@ class MainTest {
     @DisplayName("Test Kangaroo Creation and Field Access")
      void testKangarooCreationAndFieldAccess() {
 
-        Kangaroo kangaroo = new Kangaroo(1, "Kenny", 2.0, 85.0, "Male", false);
+        Kangaroo kangaroo = new Kangaroo(1, "Kenny", 2.0, 85.0, Gender.MALE, false);
 
 
         assertEquals(1, kangaroo.getId());
         assertEquals("Kenny", kangaroo.getName());
         assertEquals(2.0, kangaroo.getHeight());
         assertEquals(85.0, kangaroo.getWeight());
-        assertEquals("Male", kangaroo.getGender());
+        assertEquals(Gender.MALE, kangaroo.getGender());
         assertEquals(false, kangaroo.getIsAggressive());
     }
 
@@ -73,7 +74,7 @@ class MainTest {
         kangaroo.setName("Kanga");
         kangaroo.setHeight(1.8);
         kangaroo.setWeight(70.0);
-        kangaroo.setGender("Female");
+        kangaroo.setGender(Gender.FEMALE);
         kangaroo.setIsAggressive(true);
 
 
@@ -81,7 +82,7 @@ class MainTest {
         assertEquals("Kanga", kangaroo.getName());
         assertEquals(1.8, kangaroo.getHeight());
         assertEquals(70.0, kangaroo.getWeight());
-        assertEquals("Female", kangaroo.getGender());
+        assertEquals(Gender.FEMALE, kangaroo.getGender());
         assertTrue(kangaroo.getIsAggressive());
     }
 
@@ -89,14 +90,14 @@ class MainTest {
     @DisplayName("Test Koala AllArgsConstructor")
     void testKoalaAllArgsConstructor() {
         // Creating an instance using all-args constructor
-        Koala koala = new Koala(1, "Kara", 20.0, 15.0, "Female");
+        Koala koala = new Koala(1, "Kara", 20.0, 15.0, Gender.FEMALE);
 
         // Assertions to ensure fields are set correctly
         assertEquals(1, koala.getId());
         assertEquals("Kara", koala.getName());
         assertEquals(20.0, koala.getSleepHour());
         assertEquals(15.0, koala.getWeight());
-        assertEquals("Female", koala.getGender());
+        assertEquals(Gender.FEMALE, koala.getGender());
     }
 
     @Test
@@ -108,14 +109,14 @@ class MainTest {
         koala.setName("Kody");
         koala.setSleepHour(22.0);
         koala.setWeight(12.5);
-        koala.setGender("Male");
+        koala.setGender(Gender.MALE);
 
         // Assertions to check if setters worked through getters
         assertEquals(2, koala.getId(), "ID should match the set value.");
         assertEquals("Kody", koala.getName(), "Name should match the set value.");
         assertEquals(22.0, koala.getSleepHour(), "Sleep hour should match the set value.");
         assertEquals(12.5, koala.getWeight(), "Weight should match the set value.");
-        assertEquals("Male", koala.getGender(), "Gender should match the set value.");
+        assertEquals(Gender.MALE, koala.getGender(), "Gender should match the set value.");
     }
 
     @Test
